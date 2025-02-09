@@ -37,6 +37,7 @@ func GetTodos(w http.ResponseWriter, r *http.Request) {
 
 // POST
 func AddTodo(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("AddTodo handler called")
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -54,9 +55,15 @@ func AddTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+
 	fmt.Printf("Adding New Todo: %+v\n", newTodo)
 
+	fmt.Println("Before appending:", todos)
 	todos = append(todos, newTodo)
+	fmt.Println("After appending:", todos)
+	
+
+	// todos = append(todos, newTodo)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
