@@ -6,6 +6,7 @@ import (
 	"go-server/models"
 	"net/http"
 	"sync"
+
 	"github.com/gorilla/mux"
 )
 
@@ -55,13 +56,11 @@ func AddTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-
 	fmt.Printf("Adding New Todo: %+v\n", newTodo)
 
 	fmt.Println("Before appending:", todos)
 	todos = append(todos, newTodo)
 	fmt.Println("After appending:", todos)
-	
 
 	// todos = append(todos, newTodo)
 
