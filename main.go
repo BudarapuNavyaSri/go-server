@@ -5,30 +5,41 @@ import (
 	"go-server/routes"
 	"log"      //used for logging errors(it stops the server if something goes wrong)
 	"net/http" //used for creating a web server
+	"os"
 )
 
 func main() {
-	// port := flag.String("port", "8080", "Port to listen on")
-	// flag.Parse()
+	port := "8080"
+	if len(os.Args) > 1 {
+		port = os.Args[1]
+	}
 
-	// //start the http server
-	// serverAddress := ":"+*port
-	// fmt.Printf("SErver is starting on port %s...\n", *port)
+	router := routes.InitializeRoutes()
 
-	// go func(){
-	// 	log.Fatal(http.ListenAndServe(serverAddress,routes.InitializeRoutes()))
-
-	// }()
-
-	// 	signalChan := make(chan os.Signal,1)
-	// 	signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
-	// 	<-signalChan
-	// 	fmt.Println("\n shutting down")
-
-	routes.InitializeRoutes()
-	fmt.Println("Server running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Printf("Server running on port %s...\n", port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // // w http.ResponseWriter is used to send data back to the client
 // // r *http.Request contains all the details about the incoming request
